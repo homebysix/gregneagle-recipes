@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>Downloads latest version of Claude Code command-line tool and builds a package.
+Set DOWNLOAD_ARCH to "x64" for Intel, "arm64" for Apple silicon.</string>
+	<key>Identifier</key>
+	<string>com.github.autopkg.gregneagle-recipes.claude-code.pkg</string>
+	<key>Input</key>
+	<dict>
+		<key>NAME</key>
+		<string>ClaudeCode</string>
+		<key>DOWNLOAD_ARCH</key>
+		<string>arm64</string>
+	</dict>
+	<key>MinimumVersion</key>
+	<string>1.0</string>
+	<key>ParentRecipe</key>
+	<string>com.github.autopkg.gregneagle-recipes.claude-code.download</string>
+	<key>Process</key>
+	<array>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>pkgroot</key>
+				<string>%RECIPE_CACHE_DIR%/%NAME%</string>
+				<key>pkgdirs</key>
+				<dict>
+					<key>usr</key>
+					<string>0755</string>
+					<key>usr/local</key>
+					<string>0755</string>
+					<key>usr/local/bin</key>
+					<string>0755</string>
+				</dict>
+			</dict>
+			<key>Processor</key>
+			<string>PkgRootCreator</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>source_path</key>
+				<string>%pathname%</string>
+				<key>destination_path</key>
+				<string>%pkgroot%/usr/local/bin/claude</string>
+			</dict>
+			<key>Processor</key>
+			<string>Copier</string>
+		</dict>
+		<dict>
+			<key>Arguments</key>
+			<dict>
+				<key>pkg_request</key>
+				<dict>
+					<key>pkgname</key>
+					<string>%NAME%-%version%-%DOWNLOAD_ARCH%</string>
+					<key>pkgdir</key>
+					<string>%RECIPE_CACHE_DIR%</string>
+					<key>id</key>
+					<string>com.github.autopkg.%NAME%</string>
+					<key>chown</key>
+					<array>
+						<dict>
+							<key>path</key>
+							<string>usr/local/bin/claude</string>
+							<key>user</key>
+							<string>root</string>
+							<key>group</key>
+							<string>wheel</string>
+							<key>mode</key>
+							<string>0755</string>
+						</dict>
+					</array>
+				</dict>
+			</dict>
+			<key>Processor</key>
+			<string>PkgCreator</string>
+		</dict>
+	</array>
+</dict>
+</plist>
