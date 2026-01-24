@@ -4,7 +4,8 @@
 <dict>
 	<key>Description</key>
 	<string>Downloads latest version of Claude Code command-line tool.
-Set DOWNLOAD_ARCH to "x64" for Intel, "arm64" for Apple silicon.</string>
+Set DOWNLOAD_ARCH to "x64" for Intel, "arm64" for Apple silicon.
+Based on the script at https://claude.ai/install.sh</string>
 	<key>Identifier</key>
 	<string>com.github.autopkg.gregneagle-recipes.claude-code.download</string>
 	<key>Input</key>
